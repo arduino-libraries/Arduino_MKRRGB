@@ -25,8 +25,8 @@ name = sys.argv[3]
 
 fontWidth = 0
 fontHeight = 0
-fontCharacters = [None] * 128
-fontCharacterNames = [None] * 128
+fontCharacters = [None] * 256
+fontCharacterNames = [None] * 256
 
 with open(input) as f:
 	charName = ""
@@ -50,7 +50,7 @@ with open(input) as f:
 			bitmap = True
 			charBitmap = []
 		elif splitLine[0] == "ENDCHAR":
-			if charEncoding <= 127:
+			if charEncoding <= 255:
 				fontCharacterNames[charEncoding] = charName
 				fontCharacters[charEncoding] = charBitmap
 			charEncoding = -1
@@ -66,7 +66,7 @@ print >> out, "const struct Font %s = {" % ( name )
 print >> out, "  %d," % ( fontWidth )
 print >> out, "  %d," % ( fontHeight )
 print >> out, "  (const uint8_t*[]){"
-for c in range (0, 127):
+for c in range (0, 255):
 	if None == fontCharacters[c]:
 		print >> out, "    NULL,"
 	else:
