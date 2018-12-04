@@ -68,6 +68,10 @@ void RGBMatrixClass::end()
 
 void RGBMatrixClass::brightness(uint8_t brightness)
 {
+  if (brightness != 0 && brightness < 8) {
+    brightness = 8;
+  }
+
   // scale the brightness from: 0 - 255 to 0 - 31
   brightness = 0xe0 | (brightness >> 3);
 
