@@ -215,7 +215,7 @@ void ArduinoGraphics::bitmap(const uint8_t* data, int x, int y, int width, int h
     return;
   }
 
-  if (((x + width) < 0) || ((y + height) < 0) || (x > _width) || (y > height)) {
+  if ((data == NULL) || ((x + width) < 0) || ((y + height) < 0) || (x > _width) || (y > height)) {
     // offscreen
     return;
   }
@@ -231,6 +231,70 @@ void ArduinoGraphics::bitmap(const uint8_t* data, int x, int y, int width, int h
       }
     }
   }
+}
+
+void ArduinoGraphics::rgb16Bitmap(const uint8_t* data, int x, int y, int width, int height)
+{
+  rgb16Bitmap((const uint8_t*)data, x, y, width, height);
+}
+
+void ArduinoGraphics::rgb16Bitmap(const uint16_t* data, int x, int y, int width, int height)
+{
+  if ((data == NULL) || ((x + width) < 0) || ((y + height) < 0) || (x > _width) || (y > height)) {
+    // offscreen
+    return;
+  }
+
+  for (int j = 0; j < height; j++) {
+    for (int i = 0; i < width; i++) {
+      uint16_t pixel = *data++;
+
+      set(x + i, y + j, (pixel >> 8), ((pixel >> 3) & 0xfc), (pixel << 3) & 0xf8);
+    }
+  }
+}
+
+void ArduinoGraphics::rgb24Bitmap(const uint8_t* data, int x, int y, int width, int height)
+{
+  if ((data == NULL) || ((x + width) < 0) || ((y + height) < 0) || (x > _width) || (y > height)) {
+    // offscreen
+    return;
+  }
+
+  for (int j = 0; j < height; j++) {
+    for (int i = 0; i < width; i++) {
+      uint8_t r = *data++;
+      uint8_t g = *data++;
+      uint8_t b = *data++;
+
+      set(x + i, y + j, r, g, b);
+    }
+  }
+}
+
+void ArduinoGraphics::rgb32Bitmap(const uint8_t* data, int x, int y, int width, int height)
+{
+  if ((data == NULL) || ((x + width) < 0) || ((y + height) < 0) || (x > _width) || (y > height)) {
+    // offscreen
+    return;
+  }
+
+  for (int j = 0; j < height; j++) {
+    for (int i = 0; i < width; i++) {
+      uint8_t r = *data++;
+      uint8_t g = *data++;
+      uint8_t b = *data++;
+
+      set(x + i, y + j, r, g, b);
+
+      data++;
+    }
+  }
+}
+
+void ArduinoGraphics::rgb32Bitmap(const uint32_t* data, int x, int y, int width, int height)
+{
+  rgb32Bitmap((const uint8_t*)data, x, y, width, height);
 }
 
 void ArduinoGraphics::set(int x, int y, uint32_t color)

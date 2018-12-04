@@ -65,6 +65,12 @@ public:
 
   virtual void bitmap(const uint8_t* data, int x, int y, int width, int height);
 
+  virtual void rgb16Bitmap(const uint8_t* data, int x, int y, int width, int height);
+  virtual void rgb16Bitmap(const uint16_t* data, int x, int y, int width, int height);
+  virtual void rgb24Bitmap(const uint8_t* data, int x, int y, int width, int height);
+  virtual void rgb32Bitmap(const uint8_t* data, int x, int y, int width, int height);
+  virtual void rgb32Bitmap(const uint32_t* data, int x, int y, int width, int height);
+
   virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b) = 0;
   virtual void set(int x, int y, uint32_t color);
 
