@@ -39,10 +39,13 @@ public:
   virtual void endDraw();
 
   void background(uint8_t r, uint8_t g, uint8_t b);
+  void background(uint32_t color);
   void clear();
   void fill(uint8_t r, uint8_t g, uint8_t b);
+  void fill(uint32_t color);
   void noFill();
   void stroke(uint8_t r, uint8_t g, uint8_t b);
+  void stroke(uint32_t color);
   void noStroke();
 
   //virtual void arc(int x, int y, int width, int height, int start, int stop);
@@ -63,6 +66,7 @@ public:
   virtual void bitmap(const uint8_t* data, int x, int y, int width, int height);
 
   virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b) = 0;
+  virtual void set(int x, int y, uint32_t color);
 
   // from Print
   virtual size_t write(uint8_t);
@@ -70,6 +74,7 @@ public:
 
   virtual void beginText(int x = 0, int y = 0);
   virtual void beginText(int x, int y, uint8_t r, uint8_t g, uint8_t b);
+  virtual void beginText(int x, int y, uint32_t color);
   virtual void endText(bool scroll = false);
   virtual void textScrollSpeed(unsigned long speed = 150);
 

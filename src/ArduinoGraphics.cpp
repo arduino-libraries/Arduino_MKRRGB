@@ -1,5 +1,9 @@
 #include "ArduinoGraphics.h"
 
+#define COLOR_R(color) (uint8_t(color >> 16))
+#define COLOR_G(color) (uint8_t(color >> 8))
+#define COLOR_B(color) (uint8_t(color >> 0))
+
 ArduinoGraphics::ArduinoGraphics(int width, int height) :
   _width(width),
   _height(height),
@@ -51,6 +55,11 @@ void ArduinoGraphics::background(uint8_t r, uint8_t g, uint8_t b)
   _backgroundB = b;
 }
 
+void ArduinoGraphics::background(uint32_t color)
+{
+  background(COLOR_R(color), COLOR_G(color), COLOR_B(color));
+}
+
 void ArduinoGraphics::clear()
 {
   for (int x = 0; x < _width; x++) {
@@ -68,6 +77,11 @@ void ArduinoGraphics::fill(uint8_t r, uint8_t g, uint8_t b)
   _fillB = b;
 }
 
+void ArduinoGraphics::fill(uint32_t color)
+{
+  fill(COLOR_R(color), COLOR_G(color), COLOR_B(color));
+}
+
 void ArduinoGraphics::noFill()
 {
   _fill = false;
@@ -79,6 +93,11 @@ void ArduinoGraphics::stroke(uint8_t r, uint8_t g, uint8_t b)
   _strokeR = r;
   _strokeG = g;
   _strokeB = b;
+}
+
+void ArduinoGraphics::stroke(uint32_t color)
+{
+  stroke(COLOR_R(color), COLOR_G(color), COLOR_B(color));
 }
 
 void ArduinoGraphics::noStroke()
@@ -214,6 +233,11 @@ void ArduinoGraphics::bitmap(const uint8_t* data, int x, int y, int width, int h
   }
 }
 
+void ArduinoGraphics::set(int x, int y, uint32_t color)
+{
+  set(x, y, COLOR_R(color), COLOR_G(color), COLOR_B(color));
+}
+
 size_t ArduinoGraphics::write(uint8_t b)
 {
   _textBuffer += (char)b;
@@ -241,6 +265,11 @@ void ArduinoGraphics::beginText(int x, int y, uint8_t r, uint8_t g, uint8_t b)
   _textR = r;
   _textG = g;
   _textB = b;  
+}
+
+void ArduinoGraphics::beginText(int x, int y, uint32_t color)
+{
+  beginText(x, y, COLOR_R(color), COLOR_G(color), COLOR_B(color));
 }
 
 void ArduinoGraphics::endText(bool scroll)
