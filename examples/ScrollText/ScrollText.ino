@@ -25,7 +25,7 @@ void setup() {
   MATRIX.textScrollSpeed(125);
 
   // display some short text without scrolling
-  MATRIX.beginText(1, 1, 100, 0, 0); // X, Y, then R, G, B
+  MATRIX.beginText(1, 1, 127, 0, 0); // X, Y, then R, G, B
   MATRIX.print("Hi");
   MATRIX.endText();
 
