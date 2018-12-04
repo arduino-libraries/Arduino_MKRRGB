@@ -17,6 +17,8 @@ int ArduinoGraphics::begin()
   noFill();
   noStroke();
 
+  _textScrollSpeed = 100;
+
   return 1;
 }
 
@@ -151,30 +153,25 @@ void ArduinoGraphics::text(const char* str, int x, int y)
   }
 
   while (*str) {
-    int c = *str;
+    int c = *str++;
 
     if (c == '\n') {
       y += _font->height;
-      continue;
-    }
-
-    if (c == '\r') {
+    } else if (c == '\r') {
       x = 0;
-      continue;
+    } else {
+      const uint8_t* b = _font->data[c];
+
+      if (b == NULL) {
+        b =  _font->data[0x20];
+      }
+
+      if (b) {
+        bitmap(b, x, y, _font->width, _font->height);
+      }
+
+      x += _font->width;
     }
-
-    const uint8_t* b = _font->data[c];
-
-    if (b == NULL) {
-      b =  _font->data[0x20];
-    }
-
-    if (b) {
-      bitmap(b, x, y, _font->width, _font->height);
-    }
-
-    x += _font->width;
-    str++;
   }
 }
 
@@ -219,19 +216,34 @@ void ArduinoGraphics::bitmap(const uint8_t* data, int x, int y, int width, int h
 
 size_t ArduinoGraphics::write(uint8_t b)
 {
-  if (b == '\n') {
-    flush();
-  } else if (b == '\r') {
-    // do nothing
-  } else {
-    // buffer
-    _printBuffer += (char)b;
-  }
+  _textBuffer += (char)b;
 
   return 1;
 }
 
 void ArduinoGraphics::flush()
+{
+  _textBuffer = "";
+}
+
+void ArduinoGraphics::beginText(int x, int y)
+{
+  _textBuffer = "";
+
+  _textX = x;
+  _textY = y;
+}
+
+void ArduinoGraphics::beginText(int x, int y, uint8_t r, uint8_t g, uint8_t b)
+{
+  beginText(x, y);
+
+  _textR = r;
+  _textG = g;
+  _textB = b;  
+}
+
+void ArduinoGraphics::endText(bool scroll)
 {
   // backup the stroke color and set the color to the text color
   bool strokeOn = _stroke;
@@ -241,19 +253,19 @@ void ArduinoGraphics::flush()
 
   stroke(_textR, _textG, _textB);
 
-  if (_textScrollSpeed) {
-    int scrollLength = _printBuffer.length() * textFontWidth();
+  if (scroll) {
+    int scrollLength = _textBuffer.length() * textFontWidth();
 
     for (int i = 0; i < scrollLength; i++) {
       beginDraw();
-      text(_printBuffer, _textX - i, _textY);
+      text(_textBuffer, _textX - i, _textY);
       endDraw();
 
       delay(_textScrollSpeed);
     }
   } else {
     beginDraw();
-    text(_printBuffer, _textX, _textY);
+    text(_textBuffer, _textX, _textY);
     endDraw();
   }
 
@@ -265,30 +277,12 @@ void ArduinoGraphics::flush()
   }
 
   // clear the buffer
-  _printBuffer = "";
+  _textBuffer = "";
 }
 
-void ArduinoGraphics::textColor(int r, int g, int b)
-{
-  _textR = r;
-  _textG = g;
-  _textB = b;
-}
-
-void ArduinoGraphics::textPosition(int x, int y)
-{
-  _textX = x;
-  _textY = y;
-}
-
-void ArduinoGraphics::textScroll(long speed)
+void ArduinoGraphics::textScrollSpeed(unsigned long speed)
 {
   _textScrollSpeed = speed;
-}
-
-void ArduinoGraphics::noTextScroll()
-{
-  _textScrollSpeed = 0;
 }
 
 void ArduinoGraphics::lineLow(int x1, int y1, int x2, int y2)

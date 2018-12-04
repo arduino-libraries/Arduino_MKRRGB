@@ -47,10 +47,11 @@ set	KEYWORD2
 write	KEYWORD2
 flush	KEYWORD2
 
-textColor	KEYWORD2
-textPosition	KEYWORD2
-textScroll	KEYWORD2
-noTextScroll	KEYWORD2
+beginText	KEYWORD2
+endText	KEYWORD2
+textScrollSpeed	KEYWORD2
+
+brightness	KEYWORD2
 
 #######################################
 # Constants

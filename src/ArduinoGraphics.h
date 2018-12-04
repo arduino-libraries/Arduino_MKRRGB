@@ -68,10 +68,10 @@ public:
   virtual size_t write(uint8_t);
   virtual void flush();
 
-  virtual void textColor(int r, int g, int b);
-  virtual void textPosition(int x, int y);
-  virtual void textScroll(long speed = 150);
-  virtual void noTextScroll();
+  virtual void beginText(int x = 0, int y = 0);
+  virtual void beginText(int x, int y, uint8_t r, uint8_t g, uint8_t b);
+  virtual void endText(bool scroll = false);
+  virtual void textScrollSpeed(unsigned long speed = 150);
 
 private:
   void lineLow(int x1, int y1, int x2, int y2);
@@ -87,11 +87,11 @@ private:
   uint8_t _fillR, _fillG, _fillB;
   uint8_t _strokeR, _strokeG, _strokeB;
 
-  String _printBuffer;
+  String _textBuffer;
   uint8_t _textR, _textG, _textB;
   int _textX;
   int _textY;
-  long _textScrollSpeed;
+  unsigned long _textScrollSpeed;
 };
 
 extern const struct Font Font_5x7;
