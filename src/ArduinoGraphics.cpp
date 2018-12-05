@@ -347,7 +347,7 @@ void ArduinoGraphics::endText(bool scroll)
   stroke(_textR, _textG, _textB);
 
   if (scroll) {
-    int scrollLength = _textBuffer.length() * textFontWidth();
+    int scrollLength = _textBuffer.length() * textFontWidth() + _textX;
 
     for (int i = 0; i < scrollLength; i++) {
       beginDraw();
