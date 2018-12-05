@@ -105,6 +105,7 @@ private:
   unsigned long _textScrollSpeed;
 };
 
+extern const struct Font Font_4x6;
 extern const struct Font Font_5x7;
 
 #endif
