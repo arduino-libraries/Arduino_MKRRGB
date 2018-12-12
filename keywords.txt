@@ -6,6 +6,8 @@
 
 MKRRGBMatrix	KEYWORD1
 MATRIX	KEYWORD1
+Font	KEYWORD1
+Image	KEYWORD1
 
 #######################################
 # Methods and Functions 
@@ -40,7 +42,7 @@ textFont	KEYWORD2
 textFontWidth	KEYWORD2
 textFontHeight	KEYWORD2
 
-bitmap	KEYWORD2
+image	KEYWORD2
 
 set	KEYWORD2
 
@@ -53,8 +55,17 @@ textScrollSpeed	KEYWORD2
 
 brightness	KEYWORD2
 
+encoding	KEYWORD2
+data	KEYWORD2
+
 #######################################
 # Constants
 #######################################
 
+Font_4x6	LITERAL1
 Font_5x7	LITERAL1
+
+ENCODING_NONE	LITERAL1
+ENCODING_RGB	LITERAL1
+ENCODING_RGB24	LITERAL1
+ENCODING_RGB16	LITERAL1

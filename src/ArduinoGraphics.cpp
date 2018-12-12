@@ -233,51 +233,9 @@ void ArduinoGraphics::bitmap(const uint8_t* data, int x, int y, int width, int h
   }
 }
 
-void ArduinoGraphics::rgb16Bitmap(const uint8_t* data, int x, int y, int width, int height)
+void ArduinoGraphics::imageRGB(const Image& img, int x, int y, int width, int height)
 {
-  rgb16Bitmap((const uint8_t*)data, x, y, width, height);
-}
-
-void ArduinoGraphics::rgb16Bitmap(const uint16_t* data, int x, int y, int width, int height)
-{
-  if ((data == NULL) || ((x + width) < 0) || ((y + height) < 0) || (x > _width) || (y > height)) {
-    // offscreen
-    return;
-  }
-
-  for (int j = 0; j < height; j++) {
-    for (int i = 0; i < width; i++) {
-      uint16_t pixel = *data++;
-
-      set(x + i, y + j, (pixel >> 8), ((pixel >> 3) & 0xfc), (pixel << 3) & 0xf8);
-    }
-  }
-}
-
-void ArduinoGraphics::rgb24Bitmap(const uint8_t* data, int x, int y, int width, int height)
-{
-  if ((data == NULL) || ((x + width) < 0) || ((y + height) < 0) || (x > _width) || (y > height)) {
-    // offscreen
-    return;
-  }
-
-  for (int j = 0; j < height; j++) {
-    for (int i = 0; i < width; i++) {
-      uint8_t r = *data++;
-      uint8_t g = *data++;
-      uint8_t b = *data++;
-
-      set(x + i, y + j, r, g, b);
-    }
-  }
-}
-
-void ArduinoGraphics::rgb32Bitmap(const uint8_t* data, int x, int y, int width, int height)
-{
-  if ((data == NULL) || ((x + width) < 0) || ((y + height) < 0) || (x > _width) || (y > height)) {
-    // offscreen
-    return;
-  }
+  const uint8_t* data = img.data();
 
   for (int j = 0; j < height; j++) {
     for (int i = 0; i < width; i++) {
@@ -289,12 +247,68 @@ void ArduinoGraphics::rgb32Bitmap(const uint8_t* data, int x, int y, int width, 
 
       data++;
     }
+
+    data += (4 * (img.width() - width));
   }
 }
 
-void ArduinoGraphics::rgb32Bitmap(const uint32_t* data, int x, int y, int width, int height)
+void ArduinoGraphics::imageRGB24(const Image& img, int x, int y, int width, int height)
 {
-  rgb32Bitmap((const uint8_t*)data, x, y, width, height);
+  const uint8_t* data = img.data();
+
+  for (int j = 0; j < height; j++) {
+    for (int i = 0; i < width; i++) {
+      uint8_t r = *data++;
+      uint8_t g = *data++;
+      uint8_t b = *data++;
+
+      set(x + i, y + j, r, g, b);
+    }
+
+    data += (3 * (img.width() - width));
+  }
+}
+
+void ArduinoGraphics::imageRGB16(const Image& img, int x, int y, int width, int height)
+{
+  const uint16_t* data = (const uint16_t*)img.data();
+
+  for (int j = 0; j < height; j++) {
+    for (int i = 0; i < width; i++) {
+      uint16_t pixel = *data++;
+
+      set(x + i, y + j, (pixel >> 8), ((pixel >> 3) & 0xfc), (pixel << 3) & 0xf8);
+    }
+
+    data += (img.width() - width);
+  }
+}
+
+void ArduinoGraphics::image(const Image& img, int x, int y)
+{
+  image(img, x, y, img.width(), img.height());
+}
+
+void ArduinoGraphics::image(const Image& img, int x, int y, int width, int height)
+{
+  if (!img || ((x + width) < 0) || ((y + height) < 0) || (x > _width) || (y > height)) {
+    // offscreen
+    return;
+  }
+
+  switch (img.encoding()) {
+    case ENCODING_RGB:
+      imageRGB(img, x, y, width, height);
+      break;
+
+    case ENCODING_RGB24:
+      imageRGB24(img, x, y, width, height);
+      break;
+
+    case ENCODING_RGB16:
+      imageRGB16(img, x, y, width, height);
+      break;
+  }
 }
 
 void ArduinoGraphics::set(int x, int y, uint32_t color)

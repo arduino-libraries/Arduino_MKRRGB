@@ -23,6 +23,7 @@
 #include <Arduino.h>
 
 #include "Font.h"
+#include "Image.h"
 
 class ArduinoGraphics : public Print {
 public:
@@ -63,13 +64,8 @@ public:
   virtual int textFontWidth() const;
   virtual int textFontHeight() const;
 
-  virtual void bitmap(const uint8_t* data, int x, int y, int width, int height);
-
-  virtual void rgb16Bitmap(const uint8_t* data, int x, int y, int width, int height);
-  virtual void rgb16Bitmap(const uint16_t* data, int x, int y, int width, int height);
-  virtual void rgb24Bitmap(const uint8_t* data, int x, int y, int width, int height);
-  virtual void rgb32Bitmap(const uint8_t* data, int x, int y, int width, int height);
-  virtual void rgb32Bitmap(const uint32_t* data, int x, int y, int width, int height);
+  virtual void image(const Image& img, int x, int y);
+  virtual void image(const Image& img, int x, int y, int width, int height);
 
   virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b) = 0;
   virtual void set(int x, int y, uint32_t color);
@@ -83,6 +79,12 @@ public:
   virtual void beginText(int x, int y, uint32_t color);
   virtual void endText(bool scroll = false);
   virtual void textScrollSpeed(unsigned long speed = 150);
+
+protected:
+  virtual void bitmap(const uint8_t* data, int x, int y, int width, int height);
+  virtual void imageRGB(const Image& img, int x, int y, int width, int height);
+  virtual void imageRGB24(const Image& img, int x, int y, int width, int height);
+  virtual void imageRGB16(const Image& img, int x, int y, int width, int height);
 
 private:
   void lineLow(int x1, int y1, int x2, int y2);
