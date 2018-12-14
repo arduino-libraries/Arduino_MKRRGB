@@ -178,6 +178,8 @@ void ArduinoGraphics::text(const char* str, int x, int y)
       y += _font->height;
     } else if (c == '\r') {
       x = 0;
+    } else if (c == 0xc2 || c == 0xc3) {
+      // drop
     } else {
       const uint8_t* b = _font->data[c];
 
@@ -318,7 +320,9 @@ void ArduinoGraphics::set(int x, int y, uint32_t color)
 
 size_t ArduinoGraphics::write(uint8_t b)
 {
-  _textBuffer += (char)b;
+  if (b != 0xc2 && b != 0xc3) {
+    _textBuffer += (char)b;
+  }
 
   return 1;
 }
