@@ -1,5 +1,5 @@
 /*
-  MKR RGB Matric Shield - Sumple Draw
+  MKR RGB Matrix Shield - Simple Draw
 
   This example demonstrates how to draw on the
   MKR RGB Matrix shield.
