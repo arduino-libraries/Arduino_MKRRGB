@@ -1,5 +1,5 @@
 /*
-  MKR RGB Matric Shield - Scroll Text
+  MKR RGB Matrix Shield - Scroll Text
 
   This example demonstrates how to display and scroll text
   on the MKR RGB Matrix shield. It continuously scrolls the
