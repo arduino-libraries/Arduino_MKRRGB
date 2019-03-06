@@ -11,6 +11,7 @@
   This example code is in the public domain.
 */
 
+#include <ArduinoGraphics.h> // MKRRGBMatrix depends on ArduinoGraphics
 #include <MKRRGBMatrix.h>
 
 void setup() {

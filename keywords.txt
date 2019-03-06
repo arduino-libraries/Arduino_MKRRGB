@@ -22,41 +22,7 @@ height	KEYWORD2
 beginDraw	KEYWORD2
 endDraw	KEYWORD2
 
-background	KEYWORD2
-clear	KEYWORD2
-fill	KEYWORD2
-noFill	KEYWORD2
-stroke	KEYWORD2
-noStroke	KEYWORD2
-
-arc	KEYWORD2
-ellipse	KEYWORD2
-line	KEYWORD2
-point	KEYWORD2
-quad	KEYWORD2
-triangle	KEYWORD2
-rect	KEYWORD2
-
-text	KEYWORD2
-textFont	KEYWORD2
-textFontWidth	KEYWORD2
-textFontHeight	KEYWORD2
-
-image	KEYWORD2
-
-set	KEYWORD2
-
-write	KEYWORD2
-flush	KEYWORD2
-
-beginText	KEYWORD2
-endText	KEYWORD2
-textScrollSpeed	KEYWORD2
-
 brightness	KEYWORD2
-
-encoding	KEYWORD2
-data	KEYWORD2
 
 #######################################
 # Constants

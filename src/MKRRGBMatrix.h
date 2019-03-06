@@ -1,6 +1,6 @@
 /*
   This file is part of the MKRRGBMatrix library.
-  Copyright (c) 2018 Arduino SA. All rights reserved.
+  Copyright (c) 2019 Arduino SA. All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,7 @@
 #ifndef _MKR_RGB_MATRIX_H
 #define _MKR_RGB_MATRIX_H
 
-#include "ArduinoGraphics.h"
+#include <ArduinoGraphics.h>
 
 #define RGB_MATRIX_WIDTH  12
 #define RGB_MATRIX_HEIGHT 7
