@@ -17,33 +17,9 @@
   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef _MKR_RGB_MATRIX_H
-#define _MKR_RGB_MATRIX_H
+#ifndef _ARDUINO_MKRRGB_H
+#define _ARDUINO_MKRRGB_H
 
-#include <ArduinoGraphics.h>
-
-#define RGB_MATRIX_WIDTH  12
-#define RGB_MATRIX_HEIGHT 7
-
-class RGBMatrixClass : public ArduinoGraphics {
-public:
-  RGBMatrixClass();
-  virtual ~RGBMatrixClass();
-
-  int begin();
-  void end();
-
-  void brightness(uint8_t brightness);
-
-  virtual void beginDraw();
-  virtual void endDraw();
-
-  virtual void set(int x, int y, uint8_t r, uint8_t g, uint8_t b);
-
-private:
-  uint8_t _buffer[4 + 4 * RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT + ((RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT + 15) / 16)];
-};
-
-extern RGBMatrixClass MATRIX;
+#include "MKRRGBMatrix.h"
 
 #endif

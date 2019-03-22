@@ -1,21 +1,21 @@
 /*
-  MKR RGB Matrix Shield - Simple Draw
+  MKR RGB - Simple Draw
 
   This example demonstrates how to draw on the
-  MKR RGB Matrix shield.
+  MKR RGB shield.
 
   The circuit:
   - Arduino MKR board
-  - Arduino MKR RGB Matrix Shield attached
+  - Arduino MKR RGB shield attached
 
   This example code is in the public domain.
 */
 
-#include <ArduinoGraphics.h> // MKRRGBMatrix depends on ArduinoGraphics
-#include <MKRRGBMatrix.h>
+#include <ArduinoGraphics.h> // Arduino_MKRRGB depends on ArduinoGraphics
+#include <Arduino_MKRRGB.h>
 
 void setup() {
-  // initialize the matrix
+  // initialize the display
   MATRIX.begin();
 
   // set the brightness, supported values are 0 - 255

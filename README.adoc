@@ -1,6 +1,6 @@
-= MKRRGBMatrix Library for Arduino =
+= MKRRGB Library for Arduino =
 
-Allows you to draw on your MKR RGB Matrix shield. Depends on the ArduinoGraphics library.
+Allows you to draw on your MKR RGB shield. Depends on the ArduinoGraphics library.
 
 == License ==
 

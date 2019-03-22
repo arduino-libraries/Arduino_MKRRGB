@@ -1,22 +1,22 @@
 /*
-  MKR RGB Matrix Shield - Scroll Text
+  MKR RGB - Scroll Text
 
   This example demonstrates how to display and scroll text
-  on the MKR RGB Matrix shield. It continuously scrolls the
+  on the MKR RGB shield. It continuously scrolls the
   current millis() value on the display.
 
   The circuit:
   - Arduino MKR board
-  - Arduino MKR RGB Matrix Shield attached
+  - Arduino MKR RGB shield attached
 
   This example code is in the public domain.
 */
 
-#include <ArduinoGraphics.h> // MKRRGBMatrix depends on ArduinoGraphics
-#include <MKRRGBMatrix.h>
+#include <ArduinoGraphics.h> // Arduino_MKRRGB depends on ArduinoGraphics
+#include <Arduino_MKRRGB.h>
 
 void setup() {
-  // initialize the matrix
+  // initialize the display
   MATRIX.begin();
 
   // set the brightness, supported values are 0 - 255
