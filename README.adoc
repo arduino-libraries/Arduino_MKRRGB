@@ -2,6 +2,8 @@
 
 Allows you to draw on your MKR RGB shield. Depends on the ArduinoGraphics library.
 
+For more information about this library please visit us at https://www.arduino.cc/en/Reference/ArduinoMKRRGB
+
 == License ==
 
 Copyright (c) 2019 Arduino SA. All rights reserved.
