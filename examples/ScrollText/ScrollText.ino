@@ -35,7 +35,7 @@ void setup() {
 
 void loop() {
   MATRIX.beginText(0, 0); // use the same color as before
-  MATRIX.print("millis=");
+  MATRIX.print("   millis=");
   MATRIX.println(millis());
   MATRIX.endText(SCROLL_LEFT); // SCROLL_LEFT parameter here to configure scrolling left
 
