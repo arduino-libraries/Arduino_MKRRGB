@@ -34,10 +34,8 @@ void setup() {
 }
 
 void loop() {
-  MATRIX.beginText(0, 0); // use the same color as before
+  MATRIX.beginText(MATRIX.width() - 1, 0); // use the same color as before, start text at the right edge
   MATRIX.print("millis=");
   MATRIX.println(millis());
   MATRIX.endText(SCROLL_LEFT); // SCROLL_LEFT parameter here to configure scrolling left
-
-  delay(250);
 }
