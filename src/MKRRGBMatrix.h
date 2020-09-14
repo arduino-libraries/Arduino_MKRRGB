@@ -26,8 +26,8 @@
 #define RGB_MATRIX_HEIGHT 7
 
 // the following is for bit-bang of A4 and A3 jumpered to A5
-// uncomment if not using the Portenta H7
-#define USING_PORTENTA_H7
+// comment if not using the Portenta H7
+// #define USING_PORTENTA_H7
 
 class RGBMatrixClass : public ArduinoGraphics {
 public:
