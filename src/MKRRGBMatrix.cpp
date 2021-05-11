@@ -1,6 +1,6 @@
 /*
   This file is part of the Arduino_MKRRGB library.
-  Copyright (c) 2019 Arduino SA. All rights reserved.
+  Copyright (c) 2020 Arduino SA. All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,14 @@
 
 #include "MKRRGBMatrix.h"
 
+#ifndef USING_PORTENTA_H7
 static SPIClass SPI_MATRIX(&sercom0, A3, A4, A3, SPI_PAD_0_SCK_1, SERCOM_RX_PAD_0);
+#else
+#define DATA_PIN A5		// Note - A3 is jumpered to A5 - A3 is input
+#define CLOCK_PIN A4
+uint16_t loop_var = 0;
+#endif
+
 
 // This table is based on the formula: gamma = (int)(pow(i / 255.0, gamma) * 255 + offset)
 // where gamma = 2.5 and offset is 0.5
@@ -68,12 +75,20 @@ int RGBMatrixClass::begin()
   memset(_buffer, 0x00, 4 + 4 * RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT);
   memset(_buffer + 4 + 4 * RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT, 0xff, sizeof(_buffer) - (4 + 4 * RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT));
 
+#ifndef USING_PORTENTA_H7  
   SPI_MATRIX.begin();
   SPI_MATRIX.beginTransaction(SPISettings(12e6, MSBFIRST, SPI_MODE0));
 
   pinPeripheral(A3, PIO_SERCOM_ALT);
   pinPeripheral(A4, PIO_SERCOM_ALT);
+#else
+//  pinPeripheral(A4, PIO_OUTPUT);	// when pinPeripheral() done.
+//  pinPeripheral(A5, PIO_OUTPUT);
+  pinMode(A4, OUTPUT);
+  pinMode(A5, OUTPUT);
 
+#endif  
+  
   brightness(127);
 
   return 1;
@@ -81,16 +96,25 @@ int RGBMatrixClass::begin()
 
 void RGBMatrixClass::end()
 {
+
+#ifndef USING_PORTENTA_H7
   pinMode(A3, INPUT);
   pinMode(A4, INPUT);
 
   SPI_MATRIX.end();
+#else
+	pinMode(A5, INPUT);
+	pinMode(A4, INPUT);
 
+#endif
   ArduinoGraphics::end();
 }
 
 void RGBMatrixClass::brightness(uint8_t brightness)
 {
+#ifdef USING_PORTENTA_H7
+	uint16_t k = 0;
+#endif
   if (brightness != 0 && brightness < 8) {
     brightness = 8;
   }
@@ -101,8 +125,13 @@ void RGBMatrixClass::brightness(uint8_t brightness)
   for (int i = 0; i < (RGB_MATRIX_WIDTH * RGB_MATRIX_HEIGHT); i++) {
     _buffer[4 + i * 4] = brightness;
   }
-
+#ifndef USING_PORTENTA_H7
   SPI_MATRIX.transfer(_buffer, sizeof(_buffer));
+#else
+  loop_var = sizeof(_buffer);
+  for ( k = 0; k < loop_var; k++)
+	  shiftOut(DATA_PIN, CLOCK_PIN, MSBFIRST, (_buffer[k]));
+#endif
 }
 
 void RGBMatrixClass::beginDraw()
@@ -112,9 +141,18 @@ void RGBMatrixClass::beginDraw()
 
 void RGBMatrixClass::endDraw()
 {
+#ifdef USING_PORTENTA_H7
+	uint16_t k = 0;
+#endif	
   ArduinoGraphics::endDraw();
-
+#ifndef USING_PORTENTA_H7
   SPI_MATRIX.transfer(_buffer, sizeof(_buffer));
+#else
+  loop_var = sizeof(_buffer);
+  for ( k = 0; k < loop_var; k++)
+	shiftOut(DATA_PIN, CLOCK_PIN, MSBFIRST, (_buffer[k]));  
+  
+#endif
 }
 
 void RGBMatrixClass::set(int x, int y, uint8_t r, uint8_t g, uint8_t b)
