@@ -33,8 +33,8 @@ if (!MATRIX.begin()) {
 
 * [end()](#end)
 * [brightness()](#brightness)
-* [beginDraw()](#beginDraw)
-* [endDraw()](#endDraw)
+* [beginDraw()](#begindraw)
+* [endDraw()](#enddraw)
 * [set()](#set)
 
 ### `end()`
@@ -65,8 +65,8 @@ MATRIX.end();
 
 * [begin()](#begin)
 * [brightness()](#brightness)
-* [beginDraw()](#beginDraw)
-* [endDraw()](#endDraw)
+* [beginDraw()](#begindraw)
+* [endDraw()](#enddraw)
 * [set()](#set)
 
 ### `brightness()`
@@ -97,8 +97,8 @@ MATRIX.brightness(10);
 
 * [begin()](#begin)
 * [end()](#end)
-* [beginDraw()](#beginDraw)
-* [endDraw()](#endDraw)
+* [beginDraw()](#begindraw)
+* [endDraw()](#enddraw)
 * [set()](#set)
 
 ### `beginDraw()`
@@ -132,7 +132,7 @@ MATRIX.endDraw();
 * [begin()](#begin)
 * [end()](#end)
 * [brightness()](#brightness)
-* [endDraw()](#endDraw)
+* [endDraw()](#enddraw)
 * [set()](#set)
 
 ### `endDraw()`
@@ -166,7 +166,7 @@ MATRIX.endDraw();
 * [begin()](#begin)
 * [end()](#end)
 * [brightness()](#brightness)
-* [beginDraw()](#beginDraw)
+* [beginDraw()](#begindraw)
 * [set()](#set)
 
 ### `set()`
@@ -204,5 +204,5 @@ MATRIX.endDraw();
 * [begin()](#begin)
 * [end()](#end)
 * [brightness()](#brightness)
-* [beginDraw()](#beginDraw)
-* [endDraw()](#endDraw)
+* [beginDraw()](#begindraw)
+* [endDraw()](#enddraw)
