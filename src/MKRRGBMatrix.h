@@ -1,6 +1,6 @@
 /*
   This file is part of the Arduino_MKRRGB library.
-  Copyright (c) 2019 Arduino SA. All rights reserved.
+  Copyright (c) 2020 Arduino SA. All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -24,6 +24,10 @@
 
 #define RGB_MATRIX_WIDTH  12
 #define RGB_MATRIX_HEIGHT 7
+
+// the following is for bit-bang of A4 and A3 jumpered to A5
+// comment if not using the Portenta H7
+// #define USING_PORTENTA_H7
 
 class RGBMatrixClass : public ArduinoGraphics {
 public:

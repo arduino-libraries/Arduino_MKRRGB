@@ -11,9 +11,11 @@ Allows you to draw on your official Arduino MKR RGB shield. Depends on the Ardui
 
 For more information about this library please visit us at https://www.arduino.cc/en/Reference/{repository-name}
 
+Updated:  Works with Portenta H7 - one jumper needed - A3 to A5.  A4 can be used as-is (after pinMode change).
+#define USING_PORTENTA_H7 - make sure this is uncommented in MKRRGBMatrix.h to use the MKR RGB shield in 'bit-bang' mode.
 == License ==
 
-Copyright (c) 2019 Arduino SA. All rights reserved.
+Copyright (c) 2020 Arduino SA. All rights reserved.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
