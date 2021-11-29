@@ -22,7 +22,7 @@
 
 #include "MKRRGBMatrix.h"
 
-static SPIClass SPI_MATRIX(&sercom0, A3, A4, A3, SPI_PAD_0_SCK_1, SERCOM_RX_PAD_0);
+static SPIClassSAMD SPI_MATRIX(&sercom0, A3, A4, A3, SPI_PAD_0_SCK_1, SERCOM_RX_PAD_0);
 
 // This table is based on the formula: gamma = (int)(pow(i / 255.0, gamma) * 255 + offset)
 // where gamma = 2.5 and offset is 0.5
